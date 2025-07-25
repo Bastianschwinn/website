@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt (PHP Version) – Bastian Schwinn</title>
+    <style>
+        /* ...existing styles... (gleich wie die andere kontakt.html) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f7e7a9;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .back-button {
+            display: inline-block;
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #2c3e50;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background: #2c3e50;
+            color: white;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .content {
+            background: rgba(255,255,255,0.9);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: justify;
+        }
+        
+        .content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            color: #2c3e50;
+        }
+        
+        .content h2 {
+            color: #34495e;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .highlight {
+            background: rgba(165, 204, 227, 0.3);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+            border-left: 4px solid #a5cce3;
+        }
+        
+        .contact-form {
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Georgia', serif;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #a5cce3;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .submit-btn {
+            background: #a5cce3;
+            color: #2c3e50;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .submit-btn:hover {
+            background: #34495e;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .status-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #2c3e50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .content {
+                padding: 2rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-button">← Zurück zur Startseite</a>
+        
+        <h1>Kontakt (PHP Version)</h1>
+        
+        <div class="content">
+            <p>Falls Sie Interesse an einem Kennenlernen entwickelt haben, können Sie gerne Kontakt zu mir aufnehmen und ich melde mich dann bei Ihnen zurück.</p>
+            
+            <div class="highlight">
+                <h2>DSGVO-Konforme E-Mail-Verarbeitung</h2>
+                <p>Diese Version nutzt eine deutsche PHP-Lösung auf deutschen Servern und ist vollständig DSGVO-konform. Ihre Daten werden nicht an Drittanbieter weitergegeben.</p>
+            </div>
+            
+            <div class="highlight">
+                <h2>Terminzeiten</h2>
+                <p>Auf Grund begrenzter Kapazitäten möchte ich schon jetzt darauf hinweisen, dass ich eher am Vormittag Termine anbieten kann als in den Nachmittagsstunden. Ich bin montags und dienstags in meinem Praxisraum vor Ort, an den anderen Tagen bin ich im kinder- und jugendpsychiatrischen (≠ psychotherapeutischen) Bereich tätig.</p>
+            </div>
+            
+            <p>Ich freue mich auf Ihre Nachricht.</p>
+            
+            <div class="contact-form">
+                <h2>Kontaktformular</h2>
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">Vorname <span class="required">*</span></label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Nachname <span class="required">*</span></label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-Mail-Adresse <span class="required">*</span></label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefonnummer</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="clientType">Für wen suchen Sie Unterstützung?</label>
+                        <select id="clientType" name="clientType">
+                            <option value="">Bitte wählen...</option>
+                            <option value="kind">Für ein Kind (unter 12 Jahre)</option>
+                            <option value="jugendlicher">Für einen Jugendlichen (12-18 Jahre)</option>
+                            <option value="junger-erwachsener">Für einen jungen Erwachsenen (18-21 Jahre)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="urgency">Dringlichkeit</label>
+                        <select id="urgency" name="urgency">
+                            <option value="">Bitte wählen...</option>
+                            <option value="niedrig">Niedrig - Ich informiere mich erstmal</option>
+                            <option value="mittel">Mittel - Ich würde gerne bald einen Termin</option>
+                            <option value="hoch">Hoch - Ich benötige zeitnah Unterstützung</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="insurance">Versicherungsstatus</label>
+                        <select id="insurance" name="insurance">
+                            <option value="">Bitte wählen...</option>
+                            <option value="gesetzlich">Gesetzlich versichert</option>
+                            <option value="privat">Privat versichert</option>
+                            <option value="beihilfe">Beihilfe</option>
+                            <option value="selbstzahler">Selbstzahler</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Ihre Nachricht / Anliegen <span class="required">*</span></label>
+                        <textarea id="message" name="message" placeholder="Beschreiben Sie gerne kurz Ihr Anliegen oder stellen Sie Ihre Fragen..." required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span id="btnText">Nachricht senden</span>
+                        <div class="loading-spinner" id="loadingSpinner"></div>
+                    </button>
+                    
+                    <div class="status-message" id="statusMessage"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = document.getElementById('btnText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            // Button auf "Wird gesendet..." setzen
+            submitBtn.disabled = true;
+            btnText.style.display = 'none';
+            loadingSpinner.style.display = 'block';
+            statusMessage.style.display = 'none';
+            
+            const formData = new FormData(this);
+            
+            // E-Mail über PHP-Script senden
+            fetch('send_mail.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showStatusMessage(data.message, 'success');
+                    document.getElementById('contactForm').reset();
+                } else {
+                    showStatusMessage(data.message, 'error');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showStatusMessage('Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut oder kontaktieren Sie mich direkt.', 'error');
+            })
+            .finally(() => {
+                // Button zurücksetzen
+                submitBtn.disabled = false;
+                btnText.style.display = 'inline';
+                loadingSpinner.style.display = 'none';
+            });
+        });
+        
+        function showStatusMessage(message, type) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message status-${type}`;
+            statusMessage.style.display = 'block';
+            
+            // Nach 5 Sekunden ausblenden
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

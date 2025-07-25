@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kinder- und Jugendlichenpsychotherapie in Köln – Bastian Schwinn</title>
+    <style>
+        :root {
+            --radius-position: 20%;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #a5cce3 0%, #f7e7a9 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            text-align: center;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            color: #34495e;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        
+        .ying-yang-container {
+            margin: 2rem 0;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .ying-yang-image {
+            max-width: 800px;
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: block;
+        }
+        
+        .nav-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .nav-link {
+            position: absolute;
+            background: transparent;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 20px;
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 1.4rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            pointer-events: all;
+            transform: translate(-50%, -50%);
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: #34495e;
+            transform: translate(-50%, -50%) scale(1.1);
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.9);
+        }
+        
+        .nav-top {
+            top: var(--radius-position);
+            left: 50%;
+        }
+        
+        .nav-bottom {
+            top: calc(100% - var(--radius-position));
+            left: 50%;
+        }
+        
+        .nav-left {
+            top: 50%;
+            left: var(--radius-position);
+        }
+        
+        .nav-right {
+            top: 50%;
+            left: calc(100% - var(--radius-position));
+        }
+        
+        .center-chair {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            pointer-events: all;
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .center-chair img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+            transition: filter 0.3s ease;
+        }
+        
+        .center-chair:hover {
+            animation: schaukeln 1s ease-in-out infinite;
+        }
+        
+        .center-chair:hover img {
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+        }
+        
+        @keyframes schaukeln {
+            0% { transform: translate(-50%, -50%) rotate(-8deg); }
+            25% { transform: translate(-50%, -50%) rotate(8deg); }
+            50% { transform: translate(-50%, -50%) rotate(-8deg); }
+            75% { transform: translate(-50%, -50%) rotate(8deg); }
+            100% { transform: translate(-50%, -50%) rotate(-8deg); }
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --radius-position: 20%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 1.5rem;
+            }
+            
+            .center-chair {
+                width: 80px;
+                height: 80px;
+            }
+            
+            @keyframes schaukeln {
+                0% { transform: translate(-50%, -50%) rotate(-6deg); }
+                25% { transform: translate(-50%, -50%) rotate(6deg); }
+                50% { transform: translate(-50%, -50%) rotate(-6deg); }
+                75% { transform: translate(-50%, -50%) rotate(6deg); }
+                100% { transform: translate(-50%, -50%) rotate(-6deg); }
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Kinder- und Jugendlichenpsychotherapie in Köln – Bastian Schwinn –</h1>
+        <p class="subtitle">ressourcen- und bedürfnisorientierte Psychotherapie für Kinder, Jugendliche und junge Erwachsene</p>
+        
+        <div class="ying-yang-container">
+            <img src="path526.png" alt="Schaukelstuhl vor Ying-Yang-Kreis" class="ying-yang-image">
+            <div class="center-chair">
+                <img src="schaukelstuhl.png" alt="Schaukelstuhl">
+            </div>
+            <div class="nav-overlay">
+                <a href="therapieverstaendnis.html" class="nav-link nav-top">Therapieverständnis</a>
+                <a href="bastian-schwinn.html" class="nav-link nav-right">Bastian Schwinn</a>
+                <a href="kosten.html" class="nav-link nav-bottom">Kosten</a>
+                <a href="kontakt.html" class="nav-link nav-left">Kontakt</a>
+            </div>
+        </div>
+        
+        <footer style="margin-top: 3rem; text-align: center; padding: 2rem 0; border-top: 1px solid rgba(255,255,255,0.3);">
+            <a href="impressum.html" style="color: #2c3e50; text-decoration: none; font-size: 0.9rem; transition: color 0.3s ease;">Impressum & Datenschutz</a>
+        </footer>
+    </div>
+</body>
+</html>
