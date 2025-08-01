@@ -151,12 +151,107 @@
             100% { transform: translate(-50%, -50%) rotate(-8deg); }
         }
         
+        /* Responsive decorative images */
+        .decorative-image {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        
+        .img-puppe {
+            width: clamp(120px, 15vw, 280px);
+            height: clamp(120px, 15vw, 280px);
+            top: clamp(50px, 25vh, 300px);
+            left: clamp(20px, 18vw, 300px);
+            object-fit: cover;
+        }
+        
+        .img-therapie {
+            width: clamp(150px, 18vw, 300px);
+            height: clamp(150px, 18vw, 300px);
+            top: clamp(40px, 20vh, 250px);
+            right: clamp(20px, 15vw, 280px);
+            object-fit: cover;
+        }
+        
+        .img-wartezimmer {
+            width: clamp(100px, 12vw, 200px);
+            height: clamp(100px, 12vw, 200px);
+            bottom: clamp(30px, 15vh, 150px);
+            right: clamp(20px, 15vw, 280px);
+            object-fit: cover;
+        }
+        
+        /* Responsive Breakpoints */
+        
+        /* Sehr kleine Handys: Alle Bilder ausblenden */
+        @media (max-width: 480px) {
+            .decorative-image {
+                display: none;
+            }
+        }
+        
+        /* Kleine Tablets: Nur 2 Bilder, verkleinert */
+        @media (min-width: 481px) and (max-width: 768px) {
+            .img-wartezimmer {
+                display: none;
+            }
+            
+            .decorative-image {
+                transform: scale(0.8);
+                opacity: 0.9;
+            }
+        }
+        
+        /* Sehr kleine Höhe: Bilder verkleinern */
+        @media (max-height: 600px) {
+            .decorative-image {
+                transform: scale(0.7);
+                opacity: 0.8;
+            }
+        }
+        
+        /* Mobile Navigation anpassen */
+        @media (max-width: 768px) {
+            :root {
+                --radius-position: 20%;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .nav-link {
+                padding: 0.6rem 1rem;
+                font-size: 1.2rem;
+            }
+            
+            .center-chair {
+                width: 80px;
+                height: 80px;
+            }
+            
+            @keyframes schaukeln {
+                0% { transform: translate(-50%, -50%) rotate(-6deg); }
+                25% { transform: translate(-50%, -50%) rotate(6deg); }
+                50% { transform: translate(-50%, -50%) rotate(-6deg); }
+                75% { transform: translate(-50%, -50%) rotate(6deg); }
+                100% { transform: translate(-50%, -50%) rotate(-6deg); }
+            }
+        }
+        
     </style>
 </head>
 <body>
-    <img src="puppe.png" alt="Portrait von Bastian Schwinn" style="position: absolute; top: 300px; left: 300px; width: 280px; height: auto; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-    <img src="therapiezimmer.jpg" alt="Therapiezimmer" style="position: absolute; top: 250px; right: 280px; width: 300px; height: 300px; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-    <img src="wartezimmer.jpg" alt="Wartezimmer" style="position: absolute; bottom: 150px; right: 280px; width: 200px; height: 200px; border-radius: 50%; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+    <img src="puppe.png" alt="Portrait von Bastian Schwinn" class="decorative-image img-puppe">
+    <img src="therapiezimmer.jpg" alt="Therapiezimmer" class="decorative-image img-therapie">
+    <img src="wartezimmer.jpg" alt="Wartezimmer" class="decorative-image img-wartezimmer">
     <div class="container">
         <h1>Kinder- und Jugendlichenpsychotherapie in Köln – Bastian Schwinn –</h1>
         <p class="subtitle">ressourcen- und bedürfnisorientierte Psychotherapie für Kinder, Jugendliche und junge Erwachsene</p>
